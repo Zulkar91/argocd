@@ -6,16 +6,14 @@ spec:
   selector:
     matchLabels:
       app: mysql
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: mysql
     spec:
       containers:
-        - image: mysql:5.7
-          name: mysql
+        - name: mysql
+          image: mysql:5.7
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: wordpress
@@ -27,12 +25,4 @@ spec:
               value: wppassword
           ports:
             - containerPort: 3306
-              name: mysql
-          volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
 
